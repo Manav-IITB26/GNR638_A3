@@ -1,6 +1,6 @@
-# Assignment 3 — U-Net Implementation from Scratch
+# Assignment 3 - U-Net Implementation from Scratch
 ### Paper: *U-Net: Convolutional Networks for Biomedical Image Segmentation*
-#### Ronneberger, Fischer, Brox — arXiv:1505.04597 (2015)
+#### Ronneberger, Fischer, Brox - arXiv:1505.04597 (2015)
 
 ---
 
@@ -43,7 +43,7 @@ matplotlib>=3.7.0
 
 ---
 
-## Step 1 — Verify the Architecture
+## Step 1 - Verify the Architecture
 
 ```bash
 python unet_scratch.py
@@ -59,7 +59,7 @@ Params : 31,036,546
 
 ---
 
-## Step 2 — Generate & Visualise the Toy Dataset
+## Step 2 - Generate & Visualise the Toy Dataset
 
 ```bash
 python dataset.py
@@ -76,7 +76,7 @@ alongside their ground-truth binary segmentation masks.
 
 ---
 
-## Step 3 — Train the Scratch U-Net Only
+## Step 3 - Train the Scratch U-Net Only
 
 ```bash
 python train.py --epochs 30 --lr 1e-3 --batch 8 --n_samples 200 --out_dir runs/scratch
@@ -91,16 +91,16 @@ python train.py --epochs 30 --lr 1e-3 --batch 8 --n_samples 200 --out_dir runs/s
 | `--out_dir`  | runs/scratch | Where to save checkpoints/plots |
 
 **Outputs saved to `runs/scratch/`:**
-- `best_model.pth` — best checkpoint (by val IoU)
-- `training_curves.png` — loss, IoU, Dice over epochs
-- `history.json` — raw metric values
+- `best_model.pth` - best checkpoint (by val IoU)
+- `training_curves.png` - loss, IoU, Dice over epochs
+- `history.json` - raw metric values
 
 > **GPU recommended.** On CPU with base_features=16 and 128×128 images:
 > ~2–3 min for 30 epochs. Full 64-channel model requires a GPU.
 
 ---
 
-## Step 4 — Full Comparison vs Official Implementation
+## Step 4 - Full Comparison vs Official Implementation
 
 ```bash
 python compare.py --epochs 30 --n_samples 200 --batch 8 --out_dir runs/comparison
@@ -115,18 +115,18 @@ This script:
 5. Saves visual comparisons and overlay plots
 
 **Outputs saved to `runs/comparison/`:**
-- `fig1_dataset.png` — sample images and masks
-- `fig2_curves.png` — training curve overlay
-- `fig3_visual.png` — predicted masks from both models
-- `fig4_summary.png` — bar chart of key metrics
-- `comparison_metrics.json` — all numbers as JSON
-- `Scratch_U-Net.pth` / `Official_U-Net.pth` — saved weights
+- `fig1_dataset.png` - sample images and masks
+- `fig2_curves.png` - training curve overlay
+- `fig3_visual.png` - predicted masks from both models
+- `fig4_summary.png` - bar chart of key metrics
+- `comparison_metrics.json` - all numbers as JSON
+- `Scratch_U-Net.pth` / `Official_U-Net.pth` - saved weights
 
 ---
 
 ## Architecture Deep-Dive
 
-### U-Net (from scratch) — `unet_scratch.py`
+### U-Net (from scratch) - `unet_scratch.py`
 
 The architecture faithfully follows Section 2 of the paper:
 
@@ -158,7 +158,7 @@ OUTPUT head: Conv1×1 → num_classes (2×256×256)
 | Loss               | Weighted cross-entropy    | Weighted CE (0.3/0.7) ✓  |
 | Weight init        | Gaussian √(2/N)           | PyTorch default (He init) |
 
-### Official U-Net Re-Implementation — `compare.py`
+### Official U-Net Re-Implementation - `compare.py`
 
 Faithfully re-implements `zhixuhao/unet` architecture in PyTorch:
 - **No Batch Normalization** (as in their code)
